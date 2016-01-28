@@ -1,14 +1,17 @@
 package com.farhan.haque.securityapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
@@ -50,6 +53,11 @@ public class MainActivity extends Activity {
 
 // Commit the edits!
         editor.commit();
+
+        TelephonyManager TM = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String imeiNo = TM.getDeviceId();
+        Toast.makeText(MainActivity.this,imeiNo,Toast.LENGTH_LONG).show();
+
 
         Intent i  = new Intent(MainActivity.this,HomeActivity.class);
         startActivity(i);
