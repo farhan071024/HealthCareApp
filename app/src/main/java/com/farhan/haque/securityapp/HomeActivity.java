@@ -1,10 +1,13 @@
 package com.farhan.haque.securityapp;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class HomeActivity extends Activity {
@@ -13,6 +16,12 @@ public class HomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+    }
+
+    public void call(View v){
+        Uri number = Uri.parse("tel:2108711544");
+        Intent callIntent = new Intent(Intent.ACTION_CALL, number);
+        startActivity(callIntent);
     }
 
 
