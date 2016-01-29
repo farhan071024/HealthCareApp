@@ -8,7 +8,7 @@
 
 
     <ImageView
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
         android:id="@+id/imageView"
         android:layout_alignParentTop="true"
@@ -16,13 +16,37 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="50dp" />
 
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="capture"
         android:id="@+id/button4"
-        android:layout_below="@+id/imageView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="takeImageFromCamera"/>
+        android:onClick="takeImageFromCamera"
+        android:src="@drawable/camera"
+        />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:layout_toEndOf="@+id/button4"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/button4"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"
+        android:src="@drawable/microphone"
+        android:onClick="speech"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:text="Emergency Message"
+        android:id="@+id/textView3"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageView"
+        />
 </RelativeLayout>
