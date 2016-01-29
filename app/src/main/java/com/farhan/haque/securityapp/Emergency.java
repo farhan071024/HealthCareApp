@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ public class Emergency extends Activity {
     ImageView mimageView;
     private ImageButton btnSpeak;
     private TextView txtText;
+    private Spinner dropdown;
 
 
     @Override
@@ -37,7 +40,11 @@ public class Emergency extends Activity {
         mimageView = (ImageView) this.findViewById(R.id.imageView);
         txtText = (TextView) findViewById(R.id.textView3);
         btnSpeak = (ImageButton) findViewById(R.id.imageButton);
+        dropdown = (Spinner)findViewById(R.id.spinner1);
 
+        String[] items = new String[]{"Gun", "Fight", "Fire"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        dropdown.setAdapter(adapter);
     }
 
     public void takeImageFromCamera(View view) {
