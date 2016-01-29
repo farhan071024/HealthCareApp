@@ -53,7 +53,7 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner1"
+        android:id="@+id/spinner"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/imageButton"
         android:layout_toEndOf="@+id/imageButton"

@@ -40,7 +40,7 @@ public class Emergency extends Activity {
         mimageView = (ImageView) this.findViewById(R.id.imageView);
         txtText = (TextView) findViewById(R.id.textView3);
         btnSpeak = (ImageButton) findViewById(R.id.imageButton);
-        dropdown = (Spinner)findViewById(R.id.spinner1);
+        dropdown = (Spinner)findViewById(R.id.spinner);
 
         String[] items = new String[]{"Gun", "Fight", "Fire"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
