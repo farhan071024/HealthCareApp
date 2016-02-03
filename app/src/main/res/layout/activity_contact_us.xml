@@ -47,7 +47,7 @@
 
     <EditText
         android:layout_width="fill_parent"
-        android:layout_height="320dp"
+        android:layout_height="300dp"
         android:id="@+id/editText6"
         android:layout_below="@+id/editText5"
         android:layout_alignParentLeft="true"
@@ -61,7 +61,8 @@
         android:layout_height="wrap_content"
         android:text="Contact "
         android:id="@+id/button6"
-        android:onClick="contact"
-        android:layout_below="@+id/editText6"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"
+        android:onClick="contact" />
 </RelativeLayout>
