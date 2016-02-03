@@ -5,15 +5,20 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
+import android.os.Environment;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +30,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -47,12 +55,13 @@ public class Emergency extends Activity implements LocationListener {
     static List<Address> addresses;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergency);
 
-        mimageView = (ImageView) this.findViewById(R.id.imageView);
+        mimageView = (ImageView)findViewById(R.id.imageView);
         txtText = (TextView) findViewById(R.id.textView3);
         btnSpeak = (ImageButton) findViewById(R.id.imageButton);
         dropdown = (Spinner)findViewById(R.id.spinner);
@@ -86,7 +95,7 @@ public class Emergency extends Activity implements LocationListener {
         }
 
         locationManager.requestLocationUpdates(provider, 20000, 0, this);
-        address();
+
     }
 // Takes the picture
     public void takeImageFromCamera(View view) {
@@ -173,16 +182,55 @@ public class Emergency extends Activity implements LocationListener {
                 //Toast.LENGTH_SHORT).show();
     }
 
-    public void address(){
-        String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-        String city = addresses.get(0).getLocality();
-        String state = addresses.get(0).getAdminArea();
-        String country = addresses.get(0).getCountryName();
-        String postalCode = addresses.get(0).getPostalCode();
-        String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
-        Toast.makeText(Emergency.this,address+city+state+country+postalCode+knownName+String.valueOf(lat),Toast.LENGTH_LONG).show();
 
+    public void send(View v){
+       Drawable d =mimageView.getBackground();
+        BitmapDrawable bitDw = ((BitmapDrawable) d);
+        Bitmap bitmap = bitDw.getBitmap();
+        File mFile = savebitmap(bitmap);
 
+        Uri u = null;
+        u = Uri.fromFile(mFile);
+
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+        emailIntent.setType("message/rfc822");
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"mdfarhanhaque@gmail.com"});
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Emergency Message" );
+        // + "\n\r" + "\n\r" +
+        // feed.get(Selectedposition).DETAIL_OBJECT.IMG_URL
+        emailIntent.putExtra(Intent.EXTRA_TEXT, txtText.getText().toString()+"\nLocation:"+ addresses.get(0).getAddressLine(0)+
+                ","+addresses.get(0).getLocality()+","+addresses.get(0).getAdminArea()+","+addresses.get(0).getCountryName()+
+        ","+addresses.get(0).getPostalCode()+","+addresses.get(0).getFeatureName() );
+        emailIntent.putExtra(Intent.EXTRA_STREAM, u);
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(Emergency.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private File savebitmap(Bitmap bmp) {
+        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+        OutputStream outStream = null;
+        File file = new File(extStorageDirectory,   "oci.png");
+        if (file.exists()) {
+            file.delete();
+            file = new File(extStorageDirectory,  "oci.png");
+        }
+
+        try {
+            outStream = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return file;
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
