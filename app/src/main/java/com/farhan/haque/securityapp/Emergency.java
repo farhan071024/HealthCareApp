@@ -62,6 +62,7 @@ public class Emergency extends Activity implements LocationListener {
         setContentView(R.layout.activity_emergency);
 
         mimageView = (ImageView)findViewById(R.id.imageView);
+       // mimageView.setImageResource(R.drawable.androidlogo);
         txtText = (TextView) findViewById(R.id.textView3);
         btnSpeak = (ImageButton) findViewById(R.id.imageButton);
         dropdown = (Spinner)findViewById(R.id.spinner);
@@ -184,7 +185,7 @@ public class Emergency extends Activity implements LocationListener {
 
 
     public void send(View v){
-       Drawable d =mimageView.getBackground();
+        Drawable d =mimageView.getDrawable();
         BitmapDrawable bitDw = ((BitmapDrawable) d);
         Bitmap bitmap = bitDw.getBitmap();
         File mFile = savebitmap(bitmap);
@@ -196,14 +197,22 @@ public class Emergency extends Activity implements LocationListener {
         emailIntent.setType("message/rfc822");
         emailIntent.setData(Uri.parse("mailto:"));
         emailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"mdfarhanhaque@gmail.com"});
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Emergency Message" );
-        // + "\n\r" + "\n\r" +
-        // feed.get(Selectedposition).DETAIL_OBJECT.IMG_URL
+
+        String text = dropdown.getSelectedItem().toString();
+        if(text.matches("Gun")){
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"mdfarhanhaque@gmail.com"});
+        }else if(text.matches("Fight||Fire")){
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"farhanusad@gmail.com"});
+        } else {
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"farhan071024@gmail.com"});
+        }
+
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Emergency Alert Message" );
         emailIntent.putExtra(Intent.EXTRA_TEXT, txtText.getText().toString()+"\nLocation:"+ addresses.get(0).getAddressLine(0)+
                 ","+addresses.get(0).getLocality()+","+addresses.get(0).getAdminArea()+","+addresses.get(0).getCountryName()+
         ","+addresses.get(0).getPostalCode()+","+addresses.get(0).getFeatureName() );
         emailIntent.putExtra(Intent.EXTRA_STREAM, u);
+
         try {
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));
         } catch (android.content.ActivityNotFoundException ex) {
@@ -215,10 +224,10 @@ public class Emergency extends Activity implements LocationListener {
     private File savebitmap(Bitmap bmp) {
         String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
         OutputStream outStream = null;
-        File file = new File(extStorageDirectory,   "oci.png");
+        File file = new File(extStorageDirectory,   "oci"+".png");
         if (file.exists()) {
             file.delete();
-            file = new File(extStorageDirectory,  "oci.png");
+            file = new File(extStorageDirectory,  "oci"+".png");
         }
 
         try {
