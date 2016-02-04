@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -15,12 +16,15 @@ import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
-    EditText et1,et2;
-
+    EditText et1,et2,et3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        et1= (EditText)findViewById(R.id.editText);
+        et2= (EditText)findViewById(R.id.editText2);
+        et3= (EditText) findViewById(R.id.editText7);
 
         SharedPreferences settings = getSharedPreferences(Example.PREFS_NAME, 0);
 //Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
@@ -32,16 +36,29 @@ public class MainActivity extends Activity {
             Intent i  = new Intent(MainActivity.this,HomeActivity.class);
             startActivity(i);
             finish();
-
         }
-
     }
 
     public void register(View v){
-        et1= (EditText)findViewById(R.id.editText);
         String name= et1.getText().toString();
-        et2= (EditText)findViewById(R.id.editText2);
         String email= et2.getText().toString();
+        String phone=et3.getText().toString();
+
+        TelephonyManager TM = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String imeiNo = TM.getDeviceId();
+
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+        emailIntent.setType("message/rfc822");
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"mdfarhanhaque@gmail.com"});
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Registration Information ");
+        emailIntent.putExtra(Intent.EXTRA_TEXT,"Name:"+name+"\nEmail:"+email+"\nPhone:"+phone+"\nDevice ID:"+imeiNo);
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Registering..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(MainActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+        }
 
  //User has successfully logged in, save this information
 // We need an Editor object to make preference changes.
@@ -53,18 +70,7 @@ public class MainActivity extends Activity {
 
 // Commit the edits!
         editor.commit();
-
-        TelephonyManager TM = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        String imeiNo = TM.getDeviceId();
-        Toast.makeText(MainActivity.this,imeiNo,Toast.LENGTH_LONG).show();
-
-
-        Intent i  = new Intent(MainActivity.this,HomeActivity.class);
-        startActivity(i);
-        finish();
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
