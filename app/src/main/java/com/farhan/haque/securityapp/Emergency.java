@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -63,7 +64,7 @@ public class Emergency extends Activity implements LocationListener {
 
         mimageView = (ImageView)findViewById(R.id.imageView);
        // mimageView.setImageResource(R.drawable.androidlogo);
-        txtText = (TextView) findViewById(R.id.textView3);
+        txtText = (EditText)findViewById(R.id.textView3);
         btnSpeak = (ImageButton) findViewById(R.id.imageButton);
         dropdown = (Spinner)findViewById(R.id.spinner);
 

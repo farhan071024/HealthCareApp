@@ -37,6 +37,7 @@ public class MainActivity extends Activity {
             startActivity(i);
             finish();
         }
+
     }
 
     public void register(View v){
@@ -47,13 +48,22 @@ public class MainActivity extends Activity {
         TelephonyManager TM = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         String imeiNo = TM.getDeviceId();
 
+        TelephonyManager manager =(TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
+        String mPhoneNumber = manager.getLine1Number();
+
+
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
         emailIntent.setType("message/rfc822");
         emailIntent.setData(Uri.parse("mailto:"));
         emailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"mdfarhanhaque@gmail.com"});
         emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Registration Information ");
-        emailIntent.putExtra(Intent.EXTRA_TEXT,"Name:"+name+"\nEmail:"+email+"\nPhone:"+phone+"\nDevice ID:"+imeiNo);
+        if(mPhoneNumber == null) {
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Name:" + name + "\nEmail:" + email + "\nPhone:" + phone + "\nDevice ID:" + imeiNo);
+            Toast.makeText(MainActivity.this,"Unable to acquire the phone number...\nEnter valid phone number",Toast.LENGTH_LONG).show();
+        }else{
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Name:" + name + "\nEmail:" + email + "\nPhone:" + mPhoneNumber + "\nDevice ID:" + imeiNo);
+        }
         try {
             startActivity(Intent.createChooser(emailIntent, "Registering..."));
         } catch (android.content.ActivityNotFoundException ex) {
