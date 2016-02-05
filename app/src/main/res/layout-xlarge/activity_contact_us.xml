@@ -54,7 +54,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/editText5"
         android:layout_alignEnd="@+id/editText5"
-        android:text="App Idea" />
+        android:text="App Idea"
+        android:layout_above="@+id/button6" />
 
     <Button
         android:layout_width="fill_parent"
