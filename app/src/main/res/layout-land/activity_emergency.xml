@@ -1,0 +1,59 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context="com.farhan.haque.securityapp.ContactUs">
+<LinearLayout  android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="capture"
+        android:id="@+id/button4"
+        android:onClick="takeImageFromCamera"
+        android:src="@drawable/camera"
+        />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"
+        android:src="@drawable/microphone"
+        android:onClick="speech"/>
+    <Spinner
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:spinnerMode="dropdown"
+       />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send"
+        android:id="@+id/button5"
+        android:onClick="send"/>
+</LinearLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/imageView"
+        android:layout_marginTop="0dp"
+        android:src="@drawable/androidlogo"/>
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="400dp"
+        android:text="Emergency Message"
+        android:id="@+id/textView3"
+        android:inputType="text"
+        />
+
+</LinearLayout>
+</ScrollView>
