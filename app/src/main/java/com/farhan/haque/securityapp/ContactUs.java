@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-public class ContactUs extends Activity {
+public class ContactUs extends ActionBarActivity {
     EditText nameTxt,phoneTxt,emailTxt,appTxt;
     Button contactBtn;
     @Override

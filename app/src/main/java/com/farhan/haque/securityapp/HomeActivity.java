@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 
-public class HomeActivity extends Activity {
+public class HomeActivity extends ActionBarActivity {
     TextView tv;
 
     @Override

@@ -1,5 +1,6 @@
 package com.farhan.haque.securityapp;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -40,7 +41,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class Emergency extends Activity implements LocationListener {
+public class Emergency extends ActionBarActivity implements LocationListener {
 
     private static final int CAMERA_REQUEST = 1888;
     protected static final int RESULT_SPEECH = 1;

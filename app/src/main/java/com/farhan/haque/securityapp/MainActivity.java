@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends ActionBarActivity {
     EditText et1,et2,et3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
