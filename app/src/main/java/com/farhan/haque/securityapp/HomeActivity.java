@@ -13,14 +13,12 @@ import android.widget.TextView;
 
 
 public class HomeActivity extends ActionBarActivity {
-    TextView tv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        tv= (TextView) findViewById(R.id.textView);
-        tv.setMovementMethod(new ScrollingMovementMethod());
 
     }
 
@@ -37,6 +35,18 @@ public class HomeActivity extends ActionBarActivity {
 
     public void contactUs(View v){
         Intent i = new Intent(HomeActivity.this,ContactUs.class);
+        startActivity(i);
+    }
+    public void escape(View v){
+        Intent i = new Intent(HomeActivity.this,Escape.class);
+        startActivity(i);
+    }
+    public void message(View v){
+        Intent i = new Intent(HomeActivity.this,Message.class);
+        startActivity(i);
+    }
+    public void information(View v){
+        Intent i = new Intent(HomeActivity.this,Information.class);
         startActivity(i);
     }
 

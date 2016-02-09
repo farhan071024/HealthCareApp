@@ -9,5 +9,8 @@
     <string name="title_activity_emergency">Emergency</string>
     <string name="title_activity_contact_us">Contact Us</string>
     <string name="news">The University of Texas at San Antonio (UTSA) has announced the creation of the Open Cloud Institute, an initiative to develop degree programs in cloud computing and big data and foster collaboration with industry, positioning UTSA and San Antonio as world leaders in open cloud technology.</string>
+    <string name="title_activity_escape">Escape</string>
+    <string name="title_activity_message">Message</string>
+    <string name="title_activity_information">Information</string>
 
 </resources>
