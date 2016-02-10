@@ -2,6 +2,7 @@ package com.farhan.haque.securityapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -14,11 +15,15 @@ import android.widget.TextView;
 
 public class HomeActivity extends ActionBarActivity {
 
-
+    private TextView tv1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        tv1= (TextView) findViewById(R.id.textView6);
+        SharedPreferences prefs = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE);
+            String name = prefs.getString("name", "No name defined");//"No name defined" is the default value.
+            tv1.setText(name);
 
     }
 

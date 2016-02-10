@@ -26,6 +26,8 @@ public class MainActivity extends ActionBarActivity {
         et2= (EditText)findViewById(R.id.editText2);
         et3= (EditText) findViewById(R.id.editText7);
 
+
+
         SharedPreferences settings = getSharedPreferences(Example.PREFS_NAME, 0);
 //Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
         boolean hasLoggedIn = settings.getBoolean("hasLoggedIn", false);
@@ -80,6 +82,11 @@ public class MainActivity extends ActionBarActivity {
 
 // Commit the edits!
         editor.commit();
+
+
+        SharedPreferences.Editor editor2 = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE).edit();
+        editor2.putString("name",name );
+        editor2.commit();
     }
 
     @Override

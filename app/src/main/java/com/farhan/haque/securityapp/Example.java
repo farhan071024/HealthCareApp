@@ -5,4 +5,5 @@ package com.farhan.haque.securityapp;
  */
 public class Example {
     public static final String PREFS_NAME = "MyPrefsFile";
+    public static final String PREFS_USER_NAME = "UserName";
 }

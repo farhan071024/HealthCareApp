@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context="com.farhan.haque.securityapp.ContactUs">
+    tools:context="com.farhan.haque.securityapp.ContactUs"
+    android:background="#d3d3d3">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,7 +13,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="#d3d3d3">
 
 
         <ImageButton
@@ -20,14 +22,18 @@
             android:layout_height="wrap_content"
             android:id="@+id/imageButton1"
             android:src="@drawable/contactus"
-            android:onClick="contactUs"/>
+            android:onClick="contactUs"
+            android:layout_marginLeft="40dp"
+            android:gravity="center"
+            />
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageButton2"
             android:src="@drawable/contacts"
             android:layout_marginLeft="145dp"
-            android:onClick="information"/>
+            android:onClick="information"
+            android:gravity="center"/>
     </LinearLayout>
 
         <TextView
@@ -53,20 +59,25 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:orientation="horizontal"
-          android:layout_marginTop="30dp">
+          android:layout_marginTop="30dp"
+          android:background="#d3d3d3">
           <ImageButton
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:id="@+id/imageButton4"
               android:src="@drawable/escape"
-              android:onClick="escape"/>
+              android:onClick="escape"
+              android:layout_marginLeft="40dp"
+              android:gravity="center"/>
           <ImageButton
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:id="@+id/imageButton5"
               android:src="@drawable/message"
               android:layout_marginLeft="135dp"
-              android:onClick="message"/>
+              android:onClick="message"
+              android:gravity="center"
+              android:layout_marginTop="10dp"/>
 
           </LinearLayout>
 
