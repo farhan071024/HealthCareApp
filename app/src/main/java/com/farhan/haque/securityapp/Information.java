@@ -1,9 +1,12 @@
 package com.farhan.haque.securityapp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class Information extends ActionBarActivity {
@@ -13,6 +16,18 @@ public class Information extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
     }
+
+    public void call(View v){
+        Uri number = Uri.parse("tel:2108711544");
+        Intent callIntent = new Intent(Intent.ACTION_CALL, number);
+        startActivity(callIntent);
+    }
+    public void revertHome(View v){
+        Intent i = new Intent(Information.this,HomeActivity.class);
+        startActivity(i);
+        finish();
+    }
+
 
 
     @Override

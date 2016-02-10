@@ -27,11 +27,7 @@ public class HomeActivity extends ActionBarActivity {
 
     }
 
-    public void call(View v){
-        Uri number = Uri.parse("tel:2108711544");
-        Intent callIntent = new Intent(Intent.ACTION_CALL, number);
-        startActivity(callIntent);
-    }
+
 
     public void emergency(View v){
         Intent i = new Intent(HomeActivity.this,Emergency.class);

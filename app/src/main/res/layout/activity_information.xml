@@ -1,12 +1,65 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.farhan.haque.securityapp.Information">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context="com.farhan.haque.securityapp.ContactUs"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#d3d3d3"
+        >
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="UTSA POLICE DEPARTMENT"
+            android:id="@+id/textView"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="#d3d3d3"/>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:src="@drawable/phonenumber"
+            android:layout_gravity="center"
+            android:onClick="call"
+            android:background="#ffffff"
+            />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="UTSA FIRE DEPARTMENT"
+            android:id="@+id/textView2"
+            android:background="#d3d3d3"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView3"
+            android:src="@drawable/phonenumber"
+            android:layout_gravity="center"
+            android:background="#ffffff"
+            />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageButton6"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/alert2"
+            android:layout_marginTop="400dp"
+            android:onClick="revertHome"/>
+
+    </LinearLayout>
+</ScrollView>
