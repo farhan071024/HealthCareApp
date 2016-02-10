@@ -86,6 +86,8 @@ public class MainActivity extends ActionBarActivity {
 
         SharedPreferences.Editor editor2 = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE).edit();
         editor2.putString("name",name );
+        editor2.putString("phone",phone);
+        editor2.putString("email",email);
         editor2.commit();
     }
 

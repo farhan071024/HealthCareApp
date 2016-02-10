@@ -22,8 +22,8 @@ public class HomeActivity extends ActionBarActivity {
         setContentView(R.layout.activity_home);
         tv1= (TextView) findViewById(R.id.textView6);
         SharedPreferences prefs = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE);
-            String name = prefs.getString("name", "No name defined");//"No name defined" is the default value.
-            tv1.setText(name);
+        String name = prefs.getString("name", "No name defined");//"No name defined" is the default value.
+        tv1.setText(name);
 
     }
 

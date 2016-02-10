@@ -2,6 +2,7 @@ package com.farhan.haque.securityapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,12 +11,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 
 public class ContactUs extends ActionBarActivity {
     EditText nameTxt,phoneTxt,emailTxt,appTxt;
-    Button contactBtn;
+    ImageButton contactBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +26,16 @@ public class ContactUs extends ActionBarActivity {
         emailTxt= (EditText) findViewById(R.id.editText4);
         phoneTxt= (EditText) findViewById(R.id.editText5);
         appTxt= (EditText) findViewById(R.id.editText6);
-        contactBtn= (Button) findViewById(R.id.button6);
+        contactBtn= (ImageButton) findViewById(R.id.button6);
+        SharedPreferences prefs = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE);
+
+        String name = prefs.getString("name", "No name defined");//"No name defined" is the default value.
+        String email=prefs.getString("email", "No email defined");
+        String phone=prefs.getString("phone", "No phone number defined");
+
+        nameTxt.setText(name);
+        emailTxt.setText(email);
+        phoneTxt.setText(phone);
     }
 
     public void contact(View v){
