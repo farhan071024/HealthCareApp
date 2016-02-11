@@ -6,7 +6,8 @@
     tools:context="com.farhan.haque.securityapp.ContactUs">
     <LinearLayout  android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#d3d3d3">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,14 +35,17 @@
                 android:id="@+id/spinner"
                 android:spinnerMode="dropdown"
                 />
-            <Button
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Send"
+                android:src="@drawable/emergencymessage"
                 android:id="@+id/button5"
                 android:onClick="send"
                 android:background="#0000ff"
-                android:textColor="#ffffff"/>
+                android:textColor="#ffffff"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
         <ImageView
             android:layout_width="match_parent"
