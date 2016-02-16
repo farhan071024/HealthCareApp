@@ -27,8 +27,9 @@ public class ContactUs extends ActionBarActivity {
         phoneTxt= (EditText) findViewById(R.id.editText5);
         appTxt= (EditText) findViewById(R.id.editText6);
         contactBtn= (ImageButton) findViewById(R.id.button6);
-        SharedPreferences prefs = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE);
 
+        // Sets the user information from login page
+        SharedPreferences prefs = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE);
         String name = prefs.getString("name", "No name defined");//"No name defined" is the default value.
         String email=prefs.getString("email", "No email defined");
         String phone=prefs.getString("phone", "No phone number defined");
@@ -39,6 +40,7 @@ public class ContactUs extends ActionBarActivity {
     }
 
     public void contact(View v){
+       //Sends the email
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
         emailIntent.setType("message/rfc822");
         emailIntent.setData(Uri.parse("mailto:"));

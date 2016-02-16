@@ -16,12 +16,13 @@ public class Information extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
     }
-
+    // Using Implicit intent to call to number by onClick event on the displayed number
     public void call(View v){
         Uri number = Uri.parse("tel:2108711544");
         Intent callIntent = new Intent(Intent.ACTION_CALL, number);
         startActivity(callIntent);
     }
+    // Provides functionality to home icon
     public void revertHome(View v){
         Intent i = new Intent(Information.this,HomeActivity.class);
         startActivity(i);

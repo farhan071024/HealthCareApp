@@ -15,6 +15,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.ActionBarActivity;
@@ -32,13 +33,31 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
+import javax.net.ssl.HttpsURLConnection;
 
 
 public class Emergency extends ActionBarActivity implements LocationListener {
@@ -69,10 +88,12 @@ public class Emergency extends ActionBarActivity implements LocationListener {
         btnSpeak = (ImageButton) findViewById(R.id.imageButton);
         dropdown = (Spinner)findViewById(R.id.spinner);
 
+       // Creates the Spinner or drop down menu
         String[] items = new String[]{"Gun", "Fight", "Fire"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
 
+        // Gets the device location
         // Get the location manager
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         // Define the criteria how to select the locatioin provider -> use
@@ -121,6 +142,7 @@ public class Emergency extends ActionBarActivity implements LocationListener {
         }
     }
 
+   // uses voice recognition api to create implicit intent for voice
     public void speech(View v){
         Intent intent = new Intent(
                 RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -137,6 +159,8 @@ public class Emergency extends ActionBarActivity implements LocationListener {
             t.show();
         }
     }
+
+    // Updates location information within the activity life cycle
     @Override
     protected void onResume() {
         super.onResume();
@@ -153,9 +177,10 @@ public class Emergency extends ActionBarActivity implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-         lat =  location.getLatitude();
-         lng =  location.getLongitude();
-        // Toast.makeText(Emergency.this,String.valueOf(lat),Toast.LENGTH_LONG).show();
+        lat =  location.getLatitude();
+        lng =  location.getLongitude();
+
+        // Calculates address using Geo-coding
         geocoder = new Geocoder(this, Locale.getDefault());
 
         try {
@@ -164,8 +189,42 @@ public class Emergency extends ActionBarActivity implements LocationListener {
             e.printStackTrace();
         }
 
+        //Async task to send location information(lat,lng) to php server
+        Background bg=new Background();
+        bg.execute();
     }
 
+    //Background task using async task to send location information
+    protected class Background extends AsyncTask<Void,Void,Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+            HttpPost httppost = new HttpPost("http://localhost:8080/security/mapdata.php");
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+            nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(lat)));
+            nameValuePairs.add(new BasicNameValuePair("lng", String.valueOf(lng)));
+            try {
+                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            HttpClient httpclient = new DefaultHttpClient();
+            try {
+                HttpResponse response = httpclient.execute(httppost);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Toast.makeText(Emergency.this,"This is a big test",Toast.LENGTH_LONG).show();
+        }
+    }
+
+   // callbacks of Location Listener
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
         // TODO Auto-generated method stub
@@ -185,7 +244,7 @@ public class Emergency extends ActionBarActivity implements LocationListener {
                 //Toast.LENGTH_SHORT).show();
     }
 
-
+    // sends an email with image, voice text and location information
     public void send(View v){
         Drawable d =mimageView.getDrawable();
         BitmapDrawable bitDw = ((BitmapDrawable) d);
@@ -222,7 +281,7 @@ public class Emergency extends ActionBarActivity implements LocationListener {
         }
 
     }
-
+    // Method to save bitmap image to external storage in order to send to email
     private File savebitmap(Bitmap bmp) {
         String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
         OutputStream outStream = null;
@@ -243,6 +302,7 @@ public class Emergency extends ActionBarActivity implements LocationListener {
         }
         return file;
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
