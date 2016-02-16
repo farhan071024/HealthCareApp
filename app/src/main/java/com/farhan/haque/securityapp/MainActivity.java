@@ -27,7 +27,7 @@ public class MainActivity extends ActionBarActivity {
         et3= (EditText) findViewById(R.id.editText7);
 
 
-
+        //Using shared Preferences and boolean value to determine the appearence of the page for only first time
         SharedPreferences settings = getSharedPreferences(Example.PREFS_NAME, 0);
 //Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
         boolean hasLoggedIn = settings.getBoolean("hasLoggedIn", false);
@@ -37,7 +37,7 @@ public class MainActivity extends ActionBarActivity {
             //Go directly to main activity.
             Intent i  = new Intent(MainActivity.this,HomeActivity.class);
             startActivity(i);
-            finish();
+            finish(); // Cleans the activity stack
         }
 
     }
@@ -47,13 +47,15 @@ public class MainActivity extends ActionBarActivity {
         String email= et2.getText().toString();
         String phone=et3.getText().toString();
 
+        // Gets the IEMI number
         TelephonyManager TM = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         String imeiNo = TM.getDeviceId();
 
+        // Gets the Telephone number if stored in the SIM
         TelephonyManager manager =(TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
         String mPhoneNumber = manager.getLine1Number();
 
-
+        // Sends the email
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
         emailIntent.setType("message/rfc822");
         emailIntent.setData(Uri.parse("mailto:"));
@@ -83,7 +85,7 @@ public class MainActivity extends ActionBarActivity {
 // Commit the edits!
         editor.commit();
 
-
+        // Saves the user information for later usage
         SharedPreferences.Editor editor2 = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE).edit();
         editor2.putString("name",name );
         editor2.putString("phone",phone);
