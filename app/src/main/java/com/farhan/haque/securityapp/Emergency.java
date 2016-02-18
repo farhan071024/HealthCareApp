@@ -198,7 +198,7 @@ public class Emergency extends ActionBarActivity implements LocationListener {
     protected class Background extends AsyncTask<Void,Void,Void>{
         @Override
         protected Void doInBackground(Void... voids) {
-            HttpPost httppost = new HttpPost("http://localhost:8080/security/mapdata.php");
+            HttpPost httppost = new HttpPost("http://utsasecurity.comxa.com/index.php");
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
             nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(lat)));
             nameValuePairs.add(new BasicNameValuePair("lng", String.valueOf(lng)));
@@ -209,7 +209,7 @@ public class Emergency extends ActionBarActivity implements LocationListener {
             }
             HttpClient httpclient = new DefaultHttpClient();
             try {
-                HttpResponse response = httpclient.execute(httppost);
+                httpclient.execute(httppost);
             } catch (IOException e) {
                 e.printStackTrace();
             }
