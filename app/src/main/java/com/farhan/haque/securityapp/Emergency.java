@@ -202,6 +202,7 @@ public class Emergency extends ActionBarActivity implements LocationListener {
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
             nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(lat)));
             nameValuePairs.add(new BasicNameValuePair("lng", String.valueOf(lng)));
+            nameValuePairs.add(new BasicNameValuePair("event",dropdown.getSelectedItem().toString()));
             try {
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             } catch (UnsupportedEncodingException e) {
