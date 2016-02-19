@@ -189,9 +189,7 @@ public class Emergency extends ActionBarActivity implements LocationListener {
             e.printStackTrace();
         }
 
-        //Async task to send location information(lat,lng) to php server
-        Background bg=new Background();
-        bg.execute();
+
     }
 
     //Background task using async task to send location information
@@ -280,7 +278,9 @@ public class Emergency extends ActionBarActivity implements LocationListener {
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(Emergency.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
         }
-
+        //Async task to send location information(lat,lng) to php server
+        Background bg=new Background();
+        bg.execute();
     }
     // Method to save bitmap image to external storage in order to send to email
     private File savebitmap(Bitmap bmp) {
