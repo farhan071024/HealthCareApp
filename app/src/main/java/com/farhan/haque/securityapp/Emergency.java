@@ -202,8 +202,8 @@ public class Emergency extends ActionBarActivity implements LocationListener {
             nameValuePairs.add(new BasicNameValuePair("lng", String.valueOf(lng)));
             nameValuePairs.add(new BasicNameValuePair("event",dropdown.getSelectedItem().toString()));
 
-            SharedPreferences prefs = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE);
-            nameValuePairs.add(new BasicNameValuePair("phoneNum",prefs.getString("phone", "No phone number defined")));
+           // SharedPreferences prefs = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE);
+            nameValuePairs.add(new BasicNameValuePair("phoneNum",Example.mobileUserPhone));
 
             try {
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));

@@ -30,14 +30,14 @@ public class ContactUs extends ActionBarActivity {
         contactBtn= (ImageButton) findViewById(R.id.button6);
 
         // Sets the user information from login page
-        SharedPreferences prefs = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE);
+      /*  SharedPreferences prefs = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE);
         String name = prefs.getString("name", "No name defined");//"No name defined" is the default value.
         String email=prefs.getString("email", "No email defined");
         String phone=prefs.getString("phone", "No phone number defined");
-
-        nameTxt.setText(name);
-        emailTxt.setText(email);
-        phoneTxt.setText(phone);
+        */
+        nameTxt.setText(Example.mobileUserName);
+        emailTxt.setText(Example.mobileUserEmail);
+        phoneTxt.setText(Example.mobileUserPhone);
     }
 
     public void contact(View v){

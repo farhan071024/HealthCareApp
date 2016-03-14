@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
     EditText et1,et2,et3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +48,8 @@ public class MainActivity extends ActionBarActivity {
         String name= et1.getText().toString();
         String email= et2.getText().toString();
         String phone=et3.getText().toString();
+
+
 
         // Gets the IEMI number
         TelephonyManager TM = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
@@ -94,6 +97,7 @@ public class MainActivity extends ActionBarActivity {
         editor2.putString("phone",mPhoneNumber);
         editor2.putString("email",email);
         editor2.commit();
+
     }
 
     @Override
