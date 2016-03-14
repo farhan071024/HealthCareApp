@@ -10,16 +10,22 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <permission android:name="com.farhan.haque.securityapp.permission.C2D_MESSAGE" android:protectionLevel="signature" />
-    <uses-permission android:name="com.farhan.haque.securityapp.permission.C2D_MESSAGE" />
+    <permission
+        android:name="com.farhan.haque.securityapp.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
 
+    <uses-permission android:name="com.farhan.haque.securityapp.permission.C2D_MESSAGE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
+    <permission
+        android:name="com.example.gcm.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" />
 
     <application
         android:allowBackup="true"
@@ -59,11 +65,14 @@
             android:name=".Information"
             android:label="@string/title_activity_information" >
         </activity>
-        <receiver android:name="com.mixpanel.android.mpmetrics.GCMReceiver"
+
+        <receiver
+            android:name="com.mixpanel.android.mpmetrics.GCMReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
                 <category android:name="com.farhan.haque.securityapp" />
             </intent-filter>
         </receiver>

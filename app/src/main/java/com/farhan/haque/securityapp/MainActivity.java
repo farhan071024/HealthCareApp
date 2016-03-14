@@ -1,6 +1,7 @@
 package com.farhan.haque.securityapp;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -63,14 +64,16 @@ public class MainActivity extends ActionBarActivity {
         emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"mdfarhanhaque@gmail.com"});
         emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Registration Information ");
         if(mPhoneNumber == null) {
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "Name:" + name + "\nEmail:" + email + "\nPhone:" + phone + "\nDevice ID:" + imeiNo);
+           // emailIntent.putExtra(Intent.EXTRA_TEXT, "Name:" + name + "\nEmail:" + email + "\nPhone:" + phone + "\nDevice ID:" + imeiNo);
             Toast.makeText(MainActivity.this,"Unable to acquire the phone number...\nEnter valid phone number",Toast.LENGTH_LONG).show();
-        }else{
+            mPhoneNumber=phone;
+        }/*else{
             emailIntent.putExtra(Intent.EXTRA_TEXT, "Name:" + name + "\nEmail:" + email + "\nPhone:" + mPhoneNumber + "\nDevice ID:" + imeiNo);
-        }
+        }*/
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Name:" + name + "\nEmail:" + email + "\nPhone:" + mPhoneNumber + "\nDevice ID:" + imeiNo);
         try {
             startActivity(Intent.createChooser(emailIntent, "Registering..."));
-        } catch (android.content.ActivityNotFoundException ex) {
+        } catch (ActivityNotFoundException ex) {
             Toast.makeText(MainActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
         }
 
@@ -88,7 +91,7 @@ public class MainActivity extends ActionBarActivity {
         // Saves the user information for later usage
         SharedPreferences.Editor editor2 = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE).edit();
         editor2.putString("name",name );
-        editor2.putString("phone",phone);
+        editor2.putString("phone",mPhoneNumber);
         editor2.putString("email",email);
         editor2.commit();
     }

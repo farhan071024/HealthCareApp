@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -124,7 +125,12 @@ public class Emergency extends ActionBarActivity implements LocationListener {
 // Takes the picture
     public void takeImageFromCamera(View view) {
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+        try {
+            startActivityForResult(cameraIntent, CAMERA_REQUEST);
+        }catch (ActivityNotFoundException a) {
+            Toast t = Toast.makeText(getApplicationContext(),"Opps! Your device doesn't support Camera",Toast.LENGTH_SHORT);
+            t.show();
+        }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -135,27 +141,21 @@ public class Emergency extends ActionBarActivity implements LocationListener {
         }
 // deals with voice recognition intent
         if (requestCode == RESULT_SPEECH && resultCode == RESULT_OK && null != data){
-            ArrayList<String> text = data
-                    .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-
+            ArrayList<String> text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             txtText.setText(text.get(0));
         }
     }
 
    // uses voice recognition api to create implicit intent for voice
     public void speech(View v){
-        Intent intent = new Intent(
-                RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
 
         try {
             startActivityForResult(intent, RESULT_SPEECH);
             txtText.setText("");
         } catch (ActivityNotFoundException a) {
-            Toast t = Toast.makeText(getApplicationContext(),
-                    "Opps! Your device doesn't support Speech to Text",
-                    Toast.LENGTH_SHORT);
+            Toast t = Toast.makeText(getApplicationContext(),"Opps! Your device doesn't support Speech to Text",Toast.LENGTH_SHORT);
             t.show();
         }
     }
@@ -196,11 +196,15 @@ public class Emergency extends ActionBarActivity implements LocationListener {
     protected class Background extends AsyncTask<Void,Void,Void>{
         @Override
         protected Void doInBackground(Void... voids) {
-            HttpPost httppost = new HttpPost("http://utsasecurity.comxa.com/index.php");
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+            HttpPost httppost = new HttpPost("http://utsasecurity-1219.appspot.com/database");
+            List<NameValuePair> nameValuePairs = new ArrayList<>();
             nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(lat)));
             nameValuePairs.add(new BasicNameValuePair("lng", String.valueOf(lng)));
             nameValuePairs.add(new BasicNameValuePair("event",dropdown.getSelectedItem().toString()));
+
+            SharedPreferences prefs = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE);
+            nameValuePairs.add(new BasicNameValuePair("phoneNum",prefs.getString("phone", "No phone number defined")));
+
             try {
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             } catch (UnsupportedEncodingException e) {
@@ -209,10 +213,10 @@ public class Emergency extends ActionBarActivity implements LocationListener {
             HttpClient httpclient = new DefaultHttpClient();
             try {
                 httpclient.execute(httppost);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             return null;
         }
 
@@ -220,6 +224,7 @@ public class Emergency extends ActionBarActivity implements LocationListener {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Toast.makeText(Emergency.this,"This is a big test",Toast.LENGTH_LONG).show();
+
         }
     }
 

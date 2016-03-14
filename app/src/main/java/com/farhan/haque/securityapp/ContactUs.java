@@ -18,6 +18,7 @@ import android.widget.Toast;
 public class ContactUs extends ActionBarActivity {
     EditText nameTxt,phoneTxt,emailTxt,appTxt;
     ImageButton contactBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
