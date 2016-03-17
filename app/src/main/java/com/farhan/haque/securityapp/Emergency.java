@@ -204,6 +204,8 @@ public class Emergency extends ActionBarActivity implements LocationListener {
 
            // SharedPreferences prefs = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE);
             nameValuePairs.add(new BasicNameValuePair("phoneNum",Example.mobileUserPhone));
+            nameValuePairs.add(new BasicNameValuePair("name",Example.mobileUserName));
+            nameValuePairs.add(new BasicNameValuePair("helper",String.valueOf(Example.mobileUserRegisterAsHelper)));
 
             try {
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -223,8 +225,8 @@ public class Emergency extends ActionBarActivity implements LocationListener {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Toast.makeText(Emergency.this,"This is a big test",Toast.LENGTH_LONG).show();
-
+            //Toast.makeText(Emergency.this,"This is a big test",Toast.LENGTH_LONG).show();
+            Toast.makeText(Emergency.this,String.valueOf(Example.mobileUserRegisterAsHelper),Toast.LENGTH_LONG).show();
         }
     }
 

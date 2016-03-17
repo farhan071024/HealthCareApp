@@ -40,12 +40,11 @@
         android:text="@string/Register"
         android:id="@+id/button"
         android:onClick="register"
-        android:layout_below="@+id/editText2"
+        android:background="#0000ff"
+        android:textColor="#ffffff"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="87dp"
-        android:background="#0000ff"
-        android:textColor="#ffffff"/>
+        android:layout_below="@+id/radioGroup"/>
 
     <EditText
         android:layout_width="fill_parent"
@@ -57,7 +56,38 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:text="Phone" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/register_as_helper"
+        android:id="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editText7"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+<RadioGroup
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_below="@+id/textView4"
+    android:id="@+id/radioGroup">
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yes"
+        android:id="@+id/radioButton"
+        android:checked="false"
+        android:onClick="onRadioButtonClicked"/>
 
-
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No"
+        android:id="@+id/radioButton2"
+        android:checked="false"
+        android:onClick="onRadioButtonClicked"/>
+</RadioGroup>
 </RelativeLayout>
 </ScrollView>

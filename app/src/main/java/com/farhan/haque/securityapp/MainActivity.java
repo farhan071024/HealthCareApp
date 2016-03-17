@@ -13,12 +13,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
     EditText et1,et2,et3;
-
+    SharedPreferences.Editor editor2;
+    SharedPreferences settings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,9 +30,9 @@ public class MainActivity extends ActionBarActivity {
         et2= (EditText)findViewById(R.id.editText2);
         et3= (EditText) findViewById(R.id.editText7);
 
-
+        editor2 = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE).edit();
         //Using shared Preferences and boolean value to determine the appearence of the page for only first time
-        SharedPreferences settings = getSharedPreferences(Example.PREFS_NAME, 0);
+        settings = getSharedPreferences(Example.PREFS_NAME, 0);
 //Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
         boolean hasLoggedIn = settings.getBoolean("hasLoggedIn", false);
 
@@ -48,8 +50,6 @@ public class MainActivity extends ActionBarActivity {
         String name= et1.getText().toString();
         String email= et2.getText().toString();
         String phone=et3.getText().toString();
-
-
 
         // Gets the IEMI number
         TelephonyManager TM = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
@@ -82,7 +82,7 @@ public class MainActivity extends ActionBarActivity {
 
  //User has successfully logged in, save this information
 // We need an Editor object to make preference changes.
-        SharedPreferences settings = getSharedPreferences(Example.PREFS_NAME, 0); // 0 - for private mode
+       // SharedPreferences settings = getSharedPreferences(Example.PREFS_NAME, 0); // 0 - for private mode
         SharedPreferences.Editor editor = settings.edit();
 
 //Set "hasLoggedIn" to true
@@ -92,12 +92,33 @@ public class MainActivity extends ActionBarActivity {
         editor.commit();
 
         // Saves the user information for later usage
-        SharedPreferences.Editor editor2 = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE).edit();
         editor2.putString("name",name );
         editor2.putString("phone",mPhoneNumber);
         editor2.putString("email",email);
         editor2.commit();
 
+       // onDestroy();
+        Intent i  = new Intent(MainActivity.this,HomeActivity.class);
+        startActivity(i);
+        finish();
+
+    }
+    public void onRadioButtonClicked(View v){
+        // Is the button now checked?
+        boolean checked = ((RadioButton) v).isChecked();
+
+        // Check which radio button was clicked
+        switch(v.getId()) {
+            case R.id.radioButton:
+                if (checked)
+                    editor2.putBoolean("registerAsHelper",true);
+                break;
+            case R.id.radioButton2:
+                if (checked)
+                    editor2.putBoolean("registerAsHelper",false);
+                break;
+        }
+        editor2.commit();
     }
 
     @Override
