@@ -66,15 +66,15 @@ public class Emergency extends ActionBarActivity implements LocationListener {
     private static final int CAMERA_REQUEST = 1888;
     protected static final int RESULT_SPEECH = 1;
 
-    ImageView mimageView;
-    private ImageButton btnSpeak;
+    private ImageView mimageView;
+    //private ImageButton btnSpeak;
     private TextView txtText;
     private Spinner dropdown;
     private LocationManager locationManager;
     private String provider;
-    double lat, lng;
-    Geocoder geocoder;
-    static List<Address> addresses;
+    private double lat, lng;
+    private Geocoder geocoder;
+    private static List<Address> addresses;
 
 
 
@@ -86,7 +86,7 @@ public class Emergency extends ActionBarActivity implements LocationListener {
         mimageView = (ImageView)findViewById(R.id.imageView);
        // mimageView.setImageResource(R.drawable.androidlogo);
         txtText = (EditText)findViewById(R.id.textView3);
-        btnSpeak = (ImageButton) findViewById(R.id.imageButton);
+       // btnSpeak = (ImageButton) findViewById(R.id.imageButton);
         dropdown = (Spinner)findViewById(R.id.spinner);
 
        // Creates the Spinner or drop down menu
@@ -180,56 +180,7 @@ public class Emergency extends ActionBarActivity implements LocationListener {
         lat =  location.getLatitude();
         lng =  location.getLongitude();
 
-        // Calculates address using Geo-coding
-        geocoder = new Geocoder(this, Locale.getDefault());
-
-        try {
-            addresses = geocoder.getFromLocation(lat, lng, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
     }
-
-    //Background task using async task to send location information
-    protected class Background extends AsyncTask<Void,Void,Void>{
-        @Override
-        protected Void doInBackground(Void... voids) {
-            HttpPost httppost = new HttpPost("http://utsasecurity-1219.appspot.com/database");
-            List<NameValuePair> nameValuePairs = new ArrayList<>();
-            nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(lat)));
-            nameValuePairs.add(new BasicNameValuePair("lng", String.valueOf(lng)));
-            nameValuePairs.add(new BasicNameValuePair("event",dropdown.getSelectedItem().toString()));
-
-           // SharedPreferences prefs = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE);
-            nameValuePairs.add(new BasicNameValuePair("phoneNum",Example.mobileUserPhone));
-            nameValuePairs.add(new BasicNameValuePair("name",Example.mobileUserName));
-            nameValuePairs.add(new BasicNameValuePair("helper",String.valueOf(Example.mobileUserRegisterAsHelper)));
-
-            try {
-                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            HttpClient httpclient = new DefaultHttpClient();
-            try {
-                httpclient.execute(httppost);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            //Toast.makeText(Emergency.this,"This is a big test",Toast.LENGTH_LONG).show();
-            Toast.makeText(Emergency.this,String.valueOf(Example.mobileUserRegisterAsHelper),Toast.LENGTH_LONG).show();
-        }
-    }
-
    // callbacks of Location Listener
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -252,10 +203,20 @@ public class Emergency extends ActionBarActivity implements LocationListener {
 
     // sends an email with image, voice text and location information
     public void send(View v){
+
+        // Calculates address using Geo-coding
+        geocoder = new Geocoder(this, Locale.getDefault());
+
+        try {
+            addresses = geocoder.getFromLocation(lat, lng, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Drawable d =mimageView.getDrawable();
         BitmapDrawable bitDw = ((BitmapDrawable) d);
         Bitmap bitmap = bitDw.getBitmap();
-        File mFile = savebitmap(bitmap);
+        File mFile = Example.savebitmap(bitmap);
 
         Uri u = null;
         u = Uri.fromFile(mFile);
@@ -289,26 +250,42 @@ public class Emergency extends ActionBarActivity implements LocationListener {
         Background bg=new Background();
         bg.execute();
     }
-    // Method to save bitmap image to external storage in order to send to email
-    private File savebitmap(Bitmap bmp) {
-        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-        OutputStream outStream = null;
-        File file = new File(extStorageDirectory,   "oci"+".png");
-        if (file.exists()) {
-            file.delete();
-            file = new File(extStorageDirectory,  "oci"+".png");
-        }
+    //Background task using async task to send location information
+    protected class Background extends AsyncTask<Void,Void,Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+            HttpPost httppost = new HttpPost("http://utsasecurity-1219.appspot.com/database");
+            List<NameValuePair> nameValuePairs = new ArrayList<>();
+            nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(lat)));
+            nameValuePairs.add(new BasicNameValuePair("lng", String.valueOf(lng)));
+            nameValuePairs.add(new BasicNameValuePair("event",dropdown.getSelectedItem().toString()));
 
-        try {
-            outStream = new FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, outStream);
-            outStream.flush();
-            outStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            // SharedPreferences prefs = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE);
+            nameValuePairs.add(new BasicNameValuePair("phoneNum",Example.mobileUserPhone));
+            nameValuePairs.add(new BasicNameValuePair("name",Example.mobileUserName));
+            nameValuePairs.add(new BasicNameValuePair("helper",String.valueOf(Example.mobileUserRegisterAsHelper)));
+
+            try {
+                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            HttpClient httpclient = new DefaultHttpClient();
+            try {
+                httpclient.execute(httppost);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return null;
         }
-        return file;
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Toast.makeText(Emergency.this,"This is a big test",Toast.LENGTH_LONG).show();
+            //Toast.makeText(Emergency.this,String.valueOf(Example.mobileUserRegisterAsHelper),Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
