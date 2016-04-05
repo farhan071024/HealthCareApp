@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">UTSA SECURITY</string>
+    <string name="app_name">Patient</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="Register">Register</string>
@@ -10,8 +10,9 @@
     <string name="title_activity_contact_us">Contact Us</string>
     <string name="news">r collaboration with industry, positioning UTSA and San Antonio as world leaders in open cloud technology.</string>
     <string name="title_activity_escape">Escape</string>
-    <string name="title_activity_message">Message</string>
-    <string name="title_activity_information">Information</string>
+    <string name="title_activity_message">Patient Information</string>
+    <string name="title_activity_information">Sensors</string>
     <string name="register_as_helper">Would you also like to register as a Helper? </string>
+    <string name="sensor">Evolution of Physiological Wireless Sensors opened the door to obtain real-time information of the patient’s:Body Temperature,Hearth Rate,Skin Conductance,Respiration Rate,Stress,Symptom Tracking,Seizure Tracking and Potential Seizure Triggers </string>
 
 </resources>

@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context="com.farhan.haque.securityapp.ContactUs">
+    tools:context="com.farhan.haque.securityapp.ContactUs"
+    android:background="#d3d3d3">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -40,11 +41,12 @@
         android:text="@string/Register"
         android:id="@+id/button"
         android:onClick="register"
-        android:background="#0000ff"
+        android:background="#4d4d4d"
         android:textColor="#ffffff"
+        android:layout_below="@+id/editText7"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/radioGroup"/>
+        android:layout_marginTop="73dp" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -56,38 +58,40 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:text="Phone" />
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/register_as_helper"
-        android:id="@+id/textView4"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/editText7"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-<RadioGroup
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_below="@+id/textView4"
-    android:id="@+id/radioGroup">
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Yes"
-        android:id="@+id/radioButton"
-        android:checked="false"
-        android:onClick="onRadioButtonClicked"/>
+    <!---
+       <TextView
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:textAppearance="?android:attr/textAppearanceLarge"
+           android:text="@string/register_as_helper"
+           android:id="@+id/textView4"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentStart="true"
+           android:layout_below="@+id/editText7"
+           android:layout_alignParentRight="true"
+           android:layout_alignParentEnd="true" />
+   <RadioGroup
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:layout_below="@+id/textView4"
+       android:id="@+id/radioGroup">
+       <RadioButton
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Yes"
+           android:id="@+id/radioButton"
+           android:checked="false"
+           android:onClick="onRadioButtonClicked"/>
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No"
-        android:id="@+id/radioButton2"
-        android:checked="false"
-        android:onClick="onRadioButtonClicked"/>
-</RadioGroup>
+       <RadioButton
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="No"
+           android:id="@+id/radioButton2"
+           android:checked="false"
+           android:onClick="onRadioButtonClicked"/>
+   </RadioGroup>
+   -->
 </RelativeLayout>
 </ScrollView>

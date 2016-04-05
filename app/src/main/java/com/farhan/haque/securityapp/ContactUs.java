@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +39,34 @@ public class ContactUs extends ActionBarActivity {
         nameTxt.setText(Example.mobileUserName);
         emailTxt.setText(Example.mobileUserEmail);
         phoneTxt.setText(Example.mobileUserPhone);
+        nameTxt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                nameTxt.setText("Name: ");
+                return false;
+            }
+        });
+        emailTxt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                emailTxt.setText("Email: ");
+                return false;
+            }
+        });
+        phoneTxt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                phoneTxt.setText("Phone: ");
+                return false;
+            }
+        });
+        appTxt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                appTxt.setText("");
+                return false;
+            }
+        });
     }
 
     public void contact(View v){
@@ -46,8 +75,8 @@ public class ContactUs extends ActionBarActivity {
         emailIntent.setType("message/rfc822");
         emailIntent.setData(Uri.parse("mailto:"));
         emailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"mdfarhanhaque@gmail.com"});
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT,"New App Idea From "+nameTxt.getText().toString()+"("+phoneTxt.getText().toString()+
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"md.farhan.haque@utsa.edu"});
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT,"New Message From "+nameTxt.getText().toString()+"("+phoneTxt.getText().toString()+
         ","+emailTxt.getText().toString()+")");
         emailIntent.putExtra(Intent.EXTRA_TEXT,appTxt.getText().toString());
         try {

@@ -18,7 +18,7 @@ import com.mixpanel.android.mpmetrics.MixpanelAPI;
 public class HomeActivity extends ActionBarActivity {
 
     private TextView tv1;
-    MixpanelAPI mMixpanel;
+    //MixpanelAPI mMixpanel;
     SharedPreferences prefs;
 
     @Override
@@ -30,16 +30,16 @@ public class HomeActivity extends ActionBarActivity {
         new Example(prefs);
 
         // Code for backend push notification service "Mixpanel"
-        mMixpanel = MixpanelAPI.getInstance(this, "3f84ca2c899cfb4c7ee4e8a08dd40912"); //Mixpanel token number
+ /*       mMixpanel = MixpanelAPI.getInstance(this, "3f84ca2c899cfb4c7ee4e8a08dd40912"); //Mixpanel token number
         MixpanelAPI.People people = mMixpanel.getPeople();
         people.identify("13793"); // Random app id
         people.initPushHandling("790072665483");// Google project number
-
+*/
         // Textview taking "name" from the Login page
         tv1= (TextView) findViewById(R.id.textView6);
       //  SharedPreferences prefs = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE);
        // String name = prefs.getString("name", "No name defined");//"No name defined" is the default value.
-        tv1.setText(Example.mobileUserName);
+        tv1.setText("Hello "+Example.mobileUserName +"!");
 
     }
 
@@ -73,7 +73,7 @@ public class HomeActivity extends ActionBarActivity {
         return true;
     }
     public void onDestroy() {
-        mMixpanel.flush();  // Flushing acquired data by Mixpanel
+//        mMixpanel.flush();  // Flushing acquired data by Mixpanel
         super.onDestroy();
     }
     @Override

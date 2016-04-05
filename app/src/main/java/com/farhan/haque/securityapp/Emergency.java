@@ -24,12 +24,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,16 +85,23 @@ public class Emergency extends ActionBarActivity implements LocationListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergency);
 
-        mimageView = (ImageView)findViewById(R.id.imageView);
+     //   mimageView = (ImageView)findViewById(R.id.imageView);
        // mimageView.setImageResource(R.drawable.androidlogo);
         txtText = (EditText)findViewById(R.id.textView3);
+        txtText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                txtText.setText("");
+                return false;
+            }
+        });
        // btnSpeak = (ImageButton) findViewById(R.id.imageButton);
-        dropdown = (Spinner)findViewById(R.id.spinner);
+      //  dropdown = (Spinner)findViewById(R.id.spinner);
 
        // Creates the Spinner or drop down menu
-        String[] items = new String[]{"Gun", "Fight", "Fire"};
+   /*     String[] items = new String[]{"Doctor", "Ambulance", "Insurance"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        dropdown.setAdapter(adapter);
+        dropdown.setAdapter(adapter);*/
 
         // Gets the device location
         // Get the location manager
@@ -137,7 +146,7 @@ public class Emergency extends ActionBarActivity implements LocationListener {
 // deals with camera intent
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             Bitmap mphoto = (Bitmap) data.getExtras().get("data");
-            mimageView.setImageBitmap(mphoto);
+        //    mimageView.setImageBitmap(mphoto);
         }
 // deals with voice recognition intent
         if (requestCode == RESULT_SPEECH && resultCode == RESULT_OK && null != data){
@@ -203,7 +212,7 @@ public class Emergency extends ActionBarActivity implements LocationListener {
 
     // sends an email with image, voice text and location information
     public void send(View v){
-
+/*
         // Calculates address using Geo-coding
         geocoder = new Geocoder(this, Locale.getDefault());
 
@@ -213,7 +222,7 @@ public class Emergency extends ActionBarActivity implements LocationListener {
             e.printStackTrace();
         }
 
-        Drawable d =mimageView.getDrawable();
+       Drawable d =mimageView.getDrawable();
         BitmapDrawable bitDw = ((BitmapDrawable) d);
         Bitmap bitmap = bitDw.getBitmap();
         File mFile = Example.savebitmap(bitmap);
@@ -234,21 +243,23 @@ public class Emergency extends ActionBarActivity implements LocationListener {
         } else {
             emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"farhan071024@gmail.com"});
         }
-
+       emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"mdfarhanhaque@gmail.com"});
         emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Emergency Alert Message" );
         emailIntent.putExtra(Intent.EXTRA_TEXT, txtText.getText().toString()+"\nLocation:"+ addresses.get(0).getAddressLine(0)+
                 ","+addresses.get(0).getLocality()+","+addresses.get(0).getAdminArea()+","+addresses.get(0).getCountryName()+
         ","+addresses.get(0).getPostalCode()+","+addresses.get(0).getFeatureName() );
-        emailIntent.putExtra(Intent.EXTRA_STREAM, u);
+       // emailIntent.putExtra(Intent.EXTRA_STREAM, u);
 
         try {
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(Emergency.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
         }
+        */
         //Async task to send location information(lat,lng) to php server
         Background bg=new Background();
         bg.execute();
+        Toast.makeText(Emergency.this,"Sending ...",Toast.LENGTH_LONG).show();
     }
     //Background task using async task to send location information
     protected class Background extends AsyncTask<Void,Void,Void>{
@@ -258,7 +269,7 @@ public class Emergency extends ActionBarActivity implements LocationListener {
             List<NameValuePair> nameValuePairs = new ArrayList<>();
             nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(lat)));
             nameValuePairs.add(new BasicNameValuePair("lng", String.valueOf(lng)));
-            nameValuePairs.add(new BasicNameValuePair("event",dropdown.getSelectedItem().toString()));
+            nameValuePairs.add(new BasicNameValuePair("event","Doctor"));
 
             // SharedPreferences prefs = getSharedPreferences(Example.PREFS_USER_NAME, MODE_PRIVATE);
             nameValuePairs.add(new BasicNameValuePair("phoneNum",Example.mobileUserPhone));
@@ -283,11 +294,28 @@ public class Emergency extends ActionBarActivity implements LocationListener {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Toast.makeText(Emergency.this,"This is a big test",Toast.LENGTH_LONG).show();
+            //Toast.makeText(Emergency.this,"This is a big test",Toast.LENGTH_LONG).show();
             //Toast.makeText(Emergency.this,String.valueOf(Example.mobileUserRegisterAsHelper),Toast.LENGTH_LONG).show();
         }
     }
-
+    public void doctor(View v){
+        ListView listView= (ListView) findViewById(R.id.listView);
+        String []doctorName={"Dr.Mark Robinson","Dr. Andrew Johnson", "Dr. Richard Anderson"};
+        ArrayAdapter adapter = new ArrayAdapter<>(Emergency.this,R.layout.item,doctorName);
+        listView.setAdapter(adapter);
+    }
+    public void ambulance(View v){
+        ListView listView= (ListView) findViewById(R.id.listView);
+        String []doctorName={"RED Ambulance:call-201-222-222","BLUE Ambulance:call-210-242-454", "GREEN Ambulance:call-510-343-543"};
+        ArrayAdapter adapter = new ArrayAdapter<>(Emergency.this,R.layout.item,doctorName);
+        listView.setAdapter(adapter);
+    }
+    public void insurance(View v){
+        ListView listView= (ListView) findViewById(R.id.listView);
+        String []doctorName={"Geico:call-201-222-222","Progressive:call-210-242-454", "Nationwide:call-510-343-543"};
+        ArrayAdapter adapter = new ArrayAdapter<>(Emergency.this,R.layout.item,doctorName);
+        listView.setAdapter(adapter);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

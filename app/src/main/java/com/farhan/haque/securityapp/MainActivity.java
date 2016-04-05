@@ -64,7 +64,7 @@ public class MainActivity extends ActionBarActivity {
         emailIntent.setType("message/rfc822");
         emailIntent.setData(Uri.parse("mailto:"));
         emailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"mdfarhanhaque@gmail.com"});
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"md.farhan.haque@utsa.edu"});
         emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Registration Information ");
         if(mPhoneNumber == null) {
            // emailIntent.putExtra(Intent.EXTRA_TEXT, "Name:" + name + "\nEmail:" + email + "\nPhone:" + phone + "\nDevice ID:" + imeiNo);
@@ -103,6 +103,7 @@ public class MainActivity extends ActionBarActivity {
         finish();
 
     }
+/*
     public void onRadioButtonClicked(View v){
         // Is the button now checked?
         boolean checked = ((RadioButton) v).isChecked();
@@ -120,7 +121,7 @@ public class MainActivity extends ActionBarActivity {
         }
         editor2.commit();
     }
-
+*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
