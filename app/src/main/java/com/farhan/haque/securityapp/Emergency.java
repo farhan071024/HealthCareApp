@@ -98,7 +98,7 @@ public class Emergency extends ActionBarActivity implements LocationListener {
        // btnSpeak = (ImageButton) findViewById(R.id.imageButton);
       //  dropdown = (Spinner)findViewById(R.id.spinner);
 
-       // Creates the Spinner or drop down menu
+       // Creates the Spinner or drop down menu  and This is a test
    /*     String[] items = new String[]{"Doctor", "Ambulance", "Insurance"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);*/
