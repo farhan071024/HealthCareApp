@@ -1,2 +1,2 @@
 # HealthCareApp
-Android Application providing service to patient with backend connectivity.
+Android Application providing service to patients with backend connectivity.
